@@ -13,21 +13,19 @@ public class ShipBattleGame {
         prepareField(battleField);
 
         System.out.println("All set. Get ready to rumble!");
-        while(true){
+        while (true) {
 
             int row = getInput("Enter row number between 1 and 5: ");
             int column = getInput("Enter column number between 1 and 5: ");
-            if(row==targetRow && column==targetCol){
-                battleField[row][column]='x';
+            if (row == targetRow && column == targetCol) {
+                battleField[row][column] = 'x';
                 System.out.println("You have won!");
                 printBattleField(battleField);
                 break;
-            }
-            else {
+            } else {
                 if (battleField[row][column] == '-') {
                     battleField[row][column] = '*';
-                }
-                else{
+                } else {
                     System.out.println("You have already shot at this location!");
                 }
                 System.out.println("Try again");
@@ -37,11 +35,12 @@ public class ShipBattleGame {
 
 
     }
-    public static void prepareField(char[][] battleField){
-        for (int i=0;i<6;i++){
+
+    public static void prepareField(char[][] battleField) {
+        for (int i = 0; i < 6; i++) {
             battleField[0][i] = (char) (i + '0');
         }
-        for(int j=0;j<6;j++){
+        for (int j = 0; j < 6; j++) {
             battleField[j][0] = (char) (j + '0');
         }
         for (int i = 1; i <= 5; i++) {
@@ -51,7 +50,7 @@ public class ShipBattleGame {
         }
     }
 
-    public static  int getInput(String message){
+    public static int getInput(String message) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(message);
         int value;
@@ -71,10 +70,11 @@ public class ShipBattleGame {
         }
 
     }
-    public static void printBattleField(char[][] battleField){
-        for(int i=0;i<battleField.length;i++){
-            for (int j=0;j<battleField[0].length;j++){
-                System.out.print(battleField[i][j] +" | ");
+
+    public static void printBattleField(char[][] battleField) {
+        for (int i = 0; i < battleField.length; i++) {
+            for (int j = 0; j < battleField[0].length; j++) {
+                System.out.print(battleField[i][j] + " | ");
             }
             System.out.println();
         }
