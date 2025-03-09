@@ -26,6 +26,15 @@ public class Course {
         }
     }
 
+    public double courseGPA(){
+        double total =0;
+        for(int i=0;i<studentCount;i++){
+            total+= students[i].getGradeByCourseCode(this.courseCode);
+        }
+        return  total/studentCount;
+    }
+
+
     public String getCourseCode() {
         return courseCode;
     }

@@ -16,6 +16,35 @@ public class Student extends Person{
         grades = new double[100];
 
     }
+    public void updateGrade(Course course, double grade) {
+        for (int i = 0; i < courseCount; i++) {
+            if (courses[i].equals(course)) {
+                grades[i] = grade;
+                return;
+            }
+        }
+        System.out.println("Student  is not enrolled in this course.");
+
+    }
+    public double calculateGPA(){
+        double total=0;
+        for(double grade:grades){
+            total+= grade;
+        }
+
+        return  total/courseCount;
+
+    }
+    public double getGradeByCourseCode(String courseCode){
+
+        for(int i=0;i<courseCount;i++){
+            if(courses[i].courseCode.equals(courseCode)){
+                return grades[i];
+            }
+        }
+        return  0;
+    }
+
 
     public String getMajor() {
         return major;
@@ -47,25 +76,7 @@ public class Student extends Person{
             System.out.println(courses[i].toString());
         }
     }
-    public void updateGrade(Course course, double grade) {
-        for (int i = 0; i < courseCount; i++) {
-            if (courses[i].equals(course)) {
-                grades[i] = grade;
-           return;
-            }
-        }
-        System.out.println("Student  is not enrolled in this course.");
 
-    }
-    public double calculateGPA(){
-        double total=0;
-        for(double grade:grades){
-            total+= grade;
-        }
-
-        return  total/courseCount;
-
-    }
 
 
 }
