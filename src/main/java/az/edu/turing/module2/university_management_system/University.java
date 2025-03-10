@@ -1,5 +1,7 @@
 package az.edu.turing.module2.university_management_system;
 
+import java.util.Arrays;
+
 public class University {
     public String name;
     public Person[] people;
@@ -11,6 +13,31 @@ public class University {
         people = new Person[10000];
         courses = new Course[5000];
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Person[] getPeople() {
+         return  Arrays.copyOf(people,personCount);
+    }
+
+    public void setPeople(Person[] people) {
+        this.people = people;
+    }
+
+    public Course[] getCourses() {
+       return  Arrays.copyOf(courses,courseCount);
+    }
+
+    public void setCourses(Course[] courses) {
+        this.courses = courses;
+    }
+
     public void  addPerson(Person person){
          people[personCount] = person;
          personCount++;
@@ -46,8 +73,14 @@ public class University {
         return null;
     }
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "University{" +
+                "name='" + name + '\'' +
+                ", people=" + Arrays.toString(this.getPeople()) +
+                ", courses=" + Arrays.toString(this.getCourses()) +
+                ", personCount=" + personCount +
+                ", courseCount=" + courseCount +
+                '}';
+    }
 }

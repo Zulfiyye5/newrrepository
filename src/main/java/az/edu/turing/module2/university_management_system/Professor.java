@@ -1,5 +1,6 @@
 package az.edu.turing.module2.university_management_system;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Professor  extends  Person{
@@ -20,6 +21,14 @@ public class Professor  extends  Person{
         this.department = department;
     }
 
+    public String[] getSubjectArray() {
+       return  Arrays.copyOf(subjectArray,subjectCount);
+    }
+
+    public void setSubjectArray(String[] subjectArray) {
+        this.subjectArray = subjectArray;
+    }
+
     public void addSubject(String subject){
         subjectArray[subjectCount] = subject;
         subjectCount++;
@@ -34,6 +43,8 @@ public class Professor  extends  Person{
     public String toString() {
         return "Professor{" +
                 "department='" + department + '\'' +
+                ", subjectCount=" + subjectCount +
+                ", subjectArray=" + Arrays.toString(this.getSubjectArray()) +
                 '}';
     }
 

@@ -27,6 +27,9 @@ public class Course {
     }
 
     public double courseGPA(){
+        if(studentCount==0){
+            return  0;
+        }
         double total =0;
         for(int i=0;i<studentCount;i++){
             total+= students[i].getGradeByCourseCode(this.courseCode);
@@ -60,7 +63,7 @@ public class Course {
     }
 
     public Student[] getStudents() {
-        return students;
+        return Arrays.copyOf(students, studentCount);
     }
 
     public void setStudents(Student[] students) {
@@ -90,11 +93,9 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "courseCode='" + courseCode + '\'' +
+                "professor=" + professor +
                 ", courseName='" + courseName + '\'' +
-                ", professor=" + professor +
-                ", students=" + Arrays.toString(students) +
-                ", studentCount=" + studentCount +
+                ", courseCode='" + courseCode + '\'' +
                 '}';
     }
 }
