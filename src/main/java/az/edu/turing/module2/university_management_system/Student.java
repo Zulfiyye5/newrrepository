@@ -29,6 +29,17 @@ public class Student extends Person {
 
     }
 
+    public void updateGrade(String courseCode, double grade) {
+        for (int i = 0; i < courseCount; i++) {
+            if (courses[i].courseCode.equals(courseCode)) {
+                grades[i] = grade;
+                return;
+            }
+        }
+        System.out.println("Student is not enrolled in this course");
+    }
+
+
     public double calculateGPA() {
         double total = 0;
         for (double grade : grades) {
@@ -49,6 +60,17 @@ public class Student extends Person {
         return 0;
     }
 
+    public void enrollCourse(Course course) {
+        courses[courseCount] = course;
+        grades[courseCount] = 0;
+        courseCount++;
+    }
+
+    public void displayCourses() {
+        for (int i = 0; i < courseCount; i++) {
+            System.out.println(courses[i].toString());
+        }
+    }
 
     public String getMajor() {
         return major;
@@ -71,17 +93,6 @@ public class Student extends Person {
         return Objects.hash(super.hashCode(), major);
     }
 
-    public void enrollCourse(Course course) {
-        courses[courseCount] = course;
-        grades[courseCount] = 0;
-        courseCount++;
-    }
-
-    public void displayCourses() {
-        for (int i = 0; i < courseCount; i++) {
-            System.out.println(courses[i].toString());
-        }
-    }
 
     public Course[] getCourses() {
         return Arrays.copyOf(courses, courseCount);
