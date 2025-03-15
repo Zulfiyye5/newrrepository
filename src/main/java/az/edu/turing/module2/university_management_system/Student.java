@@ -8,7 +8,7 @@ public class Student extends Person {
     public Course[] courses;
     public double[] grades;
     private int courseCount = 0;
-
+   
 
     public Student(String name, int age, String id, String major) {
         super(name, age, id);
@@ -95,7 +95,11 @@ public class Student extends Person {
 
 
     public Course[] getCourses() {
-        return Arrays.copyOf(courses, courseCount);
+        Course[] allCourses = new Course[courseCount];
+        for(int i=0;i<courseCount;i++){
+            allCourses[i] = courses[i];
+        }
+        return allCourses;
     }
 
     public void setCourses(Course[] courses) {
@@ -103,7 +107,11 @@ public class Student extends Person {
     }
 
     public double[] getGrades() {
-        return Arrays.copyOf(grades, courseCount);
+        double[] allGrades= new double[courseCount];
+        for(int i=0;i<courseCount;i++){
+            allGrades[i] = grades[i];
+        }
+        return allGrades;
     }
 
     public void setGrades(double[] grades) {

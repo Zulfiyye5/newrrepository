@@ -63,7 +63,11 @@ public class Course {
     }
 
     public Student[] getStudents() {
-        return Arrays.copyOf(students, studentCount);
+        Student[] allStudents = new Student[studentCount];
+        for(int i=0;i<studentCount;i++){
+            allStudents[i] = students[i];
+        }
+        return allStudents;
     }
 
     public void setStudents(Student[] students) {
