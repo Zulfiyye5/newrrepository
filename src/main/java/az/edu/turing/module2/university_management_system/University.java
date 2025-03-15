@@ -23,11 +23,11 @@ public class University {
     }
 
     public Person[] getPeople() {
-        Person[] allpeople = new Person[personCount];
+        Person[] allPeople = new Person[personCount];
         for(int i=0;i<personCount;i++){
-            allpeople[i] = people[i];
+            allPeople[i] = people[i];
         }
-        return allpeople;
+        return allPeople;
     }
 
     public void setPeople(Person[] people) {
@@ -91,22 +91,7 @@ public class University {
             System.out.println(courses[i].toString());
         }
     }
-    public Person searchPersonById(String personId) {
-        for (Person person : people) {
-            if (person.getId().equals(personId)) {
-                return person;
-            }
-        }
-        return null;
-    }
-    public Course searchCourseByCourseCode(String courseCode) {
-        for (Course course : courses) {
-            if (course.getCourseCode().equals(courseCode)) {
-                return course;
-            }
-        }
-        return null;
-    }
+
 
     @Override
     public String toString() {
