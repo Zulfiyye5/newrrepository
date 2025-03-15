@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public class University {
     public String name;
-    public Person[] people;
-    public  Course[] courses;
-    private  int personCount =0;
-    private  int  courseCount=0;
+    private Person[] people;
+    private   Course[] courses;
+    public   int personCount =0;
+    public   int  courseCount=0;
     public  University(String name){
         this.name = name;
         people = new Person[10000];
@@ -23,7 +23,11 @@ public class University {
     }
 
     public Person[] getPeople() {
-         return  Arrays.copyOf(people,personCount);
+        Person[] allpeople = new Person[personCount];
+        for(int i=0;i<personCount;i++){
+            allpeople[i] = people[i];
+        }
+        return allpeople;
     }
 
     public void setPeople(Person[] people) {
@@ -31,7 +35,11 @@ public class University {
     }
 
     public Course[] getCourses() {
-       return  Arrays.copyOf(courses,courseCount);
+        Course[] allCourses = new Course[courseCount];
+        for(int i=0;i<courseCount;i++){
+            allCourses[i] = courses[i];
+        }
+        return allCourses;
     }
 
     public void setCourses(Course[] courses) {
@@ -39,12 +47,39 @@ public class University {
     }
 
     public void  addPerson(Person person){
-         people[personCount] = person;
-         personCount++;
+        if(!isPersonExist(person.id)){
+            people[personCount] = person;
+            personCount++;
+        }
+        else{
+            System.out.println("Person " + person.name + " already exists!");
+        }
+
     }
     public  void addCourse(Course course){
-        courses[courseCount] = course;
-        courseCount++;
+        if (!isCourseExist(course.courseCode)) {
+                courses[courseCount] = course;
+                courseCount++;
+
+        } else {
+            System.out.println("Course " + course.courseName + " already exists!");
+        }
+    }
+    private boolean isCourseExist(String courseCode) {
+        for (int i = 0; i < courseCount; i++) {
+            if (courses[i].courseCode.equals(courseCode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean isPersonExist(String personId) {
+        for (int i = 0; i < personCount; i++) {
+            if (people[i].id.equals(personId)) {
+                return true;
+            }
+        }
+        return false;
     }
     public  void  displayPeople(){
         for (int i=0;i<personCount;i++){

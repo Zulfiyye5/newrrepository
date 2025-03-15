@@ -7,8 +7,8 @@ public class Course {
     public  String courseCode;
     public String courseName;
     public Professor professor;
-    public Student[] students;
-    private  int studentCount=0;
+    private Student[] students;
+    public   int studentCount=0;
 
     public  Course(String courseCode ,String courseName,Professor professor){
         this.courseCode= courseCode;
@@ -17,8 +17,14 @@ public class Course {
         students = new Student[2000];
     }
     public void addStudent(Student student){
-        students[studentCount] = student;
-        studentCount++;
+        if(!isStudentExist(student.id)){
+            students[studentCount] = student;
+            studentCount++;
+        }
+        else{
+            System.out.println("Student " + student.name + " already exists!");
+        }
+
     }
     public void displayStudents(){
         for(int i=0;i<studentCount;i++){
@@ -36,7 +42,14 @@ public class Course {
         }
         return  total/studentCount;
     }
-
+    private boolean isStudentExist(String studentId) {
+        for (int i = 0; i < studentCount; i++) {
+            if (students[i].id.equals(studentId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String getCourseCode() {
         return courseCode;

@@ -59,12 +59,27 @@ public class Student extends Person {
         }
         return 0;
     }
-
     public void enrollCourse(Course course) {
-        courses[courseCount] = course;
-        grades[courseCount] = 0;
-        courseCount++;
+        if (isCourseEnrolled(course.courseCode)) {
+            System.out.println("Student is already enrolled in " + course.courseCode);
+            return;
+        }
+
+            courses[courseCount] = course;
+            grades[courseCount] = 0;
+            courseCount++;
+
     }
+
+    private boolean isCourseEnrolled(String courseCode) {
+        for (int i = 0; i < courseCount; i++) {
+            if (courses[i].courseCode.equals(courseCode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void displayCourses() {
         for (int i = 0; i < courseCount; i++) {

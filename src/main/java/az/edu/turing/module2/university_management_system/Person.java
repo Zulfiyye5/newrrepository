@@ -3,9 +3,9 @@ package az.edu.turing.module2.university_management_system;
 import java.util.Objects;
 
 public class Person {
-    private String name;
-    private int age;
-    private  String id;
+    public String name;
+    public int age;
+    public   String id;
 
     public Person(String name, int age,String id){
         this.name = name;
