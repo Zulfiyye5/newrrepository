@@ -3,7 +3,7 @@ package az.edu.turing.module03.happy_family;
 import java.util.Arrays;
 
 public class Pet {
-    private String species;
+    private Species species;
     private String nickname;
     private int age;
     private int trickLevel;
@@ -17,7 +17,7 @@ public class Pet {
         this.nickname = nickname;
     }
 
-    public Pet(String species, String nickname, int age, int trickLevel, String[] habits) {
+    public Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
         this.species = species;
         this.nickname = nickname;
         this.age = age;
@@ -28,13 +28,15 @@ public class Pet {
 
     @Override
     public String toString() {
-        return species + "{" +
+        return species.name() + "{" +
                 ", nickname='" + nickname + '\'' +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
                 ", habits=" + Arrays.toString(habits) +
                 '}';
     }
+
+
 
     public void eat() {
         System.out.println("I am eating");
@@ -50,10 +52,10 @@ public class Pet {
 
 
     public String getSpecies() {
-        return species;
+        return species.name();
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(Species species) {
         this.species = species;
     }
 

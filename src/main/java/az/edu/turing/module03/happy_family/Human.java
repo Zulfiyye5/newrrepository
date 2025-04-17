@@ -10,10 +10,10 @@ public class Human {
     private int yearOfBirth;
     private int IQ;
     private Family family;
-    private String[][] schedule;
+    private String[] schedule;
 
     public Human() {
-
+        this.schedule = new String[7];
 
     }
 
@@ -21,11 +21,11 @@ public class Human {
         this.name = name;
         this.surname = surname;
         this.yearOfBirth = yearOfBirth;
-
+        this.schedule = new String[7];
     }
 
 
-    public Human(String name, String surname, int yearOfBirth, int IQ, String[][] schedule, Family family) {
+    public Human(String name, String surname, int yearOfBirth, int IQ, String[] schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.yearOfBirth = yearOfBirth;
@@ -94,14 +94,25 @@ public class Human {
     }
 
 
-    public String[][] getSchedule() {
+    public String[] getSchedule() {
+
         return schedule;
     }
-
-    public void setSchedule(String[][] schedule) {
+    public void setSchedule(DayOfWeek day, String activity) {
+        schedule[day.ordinal()] = activity;
+    }
+    public void setSchedule(String[] schedule) {
+        if (schedule.length != 7) {
+            throw new IllegalArgumentException("Schedule must have 7 entries for each day of the week.");
+        }
         this.schedule = schedule;
     }
-
+    public void printSchedule() {
+        for (DayOfWeek day : DayOfWeek.values()) {
+            String activity = (schedule[day.ordinal()] == null) ? "No activity" : schedule[day.ordinal()];
+            System.out.println(day.name() + ": " + activity);
+        }
+    }
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

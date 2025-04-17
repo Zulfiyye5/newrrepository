@@ -42,23 +42,25 @@ public class Family {
          }
 
     }
-    public boolean deleteChild(Human child){
+    public boolean deleteChild(Human child) {
         boolean exist = false;
-        int j=0;
+        int j = 0;
         Human[] newArray = new Human[this.children.length - 1];
-        for (Human human : this.children) {
-            if (human.equals(child)) {
-                exist = true;
-                human.setFamily(null);
-                continue;
-            } else {
-                newArray[j++] = human;
 
+        for (Human human : this.children) {
+            if (!human.equals(child)) {
+                if (j >= newArray.length) break;
+                newArray[j++] = human;
+            } else {
+                human.setFamily(null);
+                exist = true;
             }
         }
-        if(exist){
-            setChildren(newArray);
+
+        if (exist) {
+            setChildren(Arrays.copyOf(newArray, j));
         }
+
         return exist;
     }
 
