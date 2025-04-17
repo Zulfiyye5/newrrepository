@@ -1,17 +1,18 @@
 package az.edu.turing.module03.happy_family;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 public class Human {
     private String name;
     private String surname;
     private int yearOfBirth;
-    private  int IQ;
-    private Pet pet;
-    private Human mother;
-    private Human father;
+    private int IQ;
+    private Family family;
     private String[][] schedule;
-    public Human(){
+
+    public Human() {
 
 
     }
@@ -23,86 +24,30 @@ public class Human {
 
     }
 
-    public Human(String name, String surname, int yearOfBirth, Human father, Human mother) {
-        this.name = name;
-        this.surname = surname;
-        this.yearOfBirth = yearOfBirth;
-        this.mother = mother;
-        this.father = father;
 
-    }
-
-
-    public Human(String name, String surname, int yearOfBirth, int IQ, Pet pet, Human mother, Human father, String[][] schedule) {
+    public Human(String name, String surname, int yearOfBirth, int IQ, String[][] schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.yearOfBirth = yearOfBirth;
         this.IQ = IQ;
-        this.pet = pet;
-        this.mother = mother;
-        this.father = father;
         this.schedule = schedule;
+        this.family = family;
     }
 
-    public void greetPet() {
-        if (pet != null && pet.getNickname() != null) {
-            System.out.println("Hello, " + pet.getNickname());
-        } else {
-            System.out.println("I don't have a pet to greet.");
-        }
-    }
 
-    public void describePet() {
-        if (pet != null) {
-            System.out.print("I have an " + pet.getSpecies() + ", it is " + pet.getAge() + " years old, and it is ");
-            if (pet.getTrickLevel() >= 50) {
-                System.out.println("very sly.");
-            } else {
-                System.out.println("almost not sly.");
-            }
-        } else {
-            System.out.println("I don't have a pet to describe.");
-        }
-    }
-    public boolean feedPet(boolean isTimeToFeed) {
-        if(pet!=null){
-            boolean willFeed;
 
-            if (isTimeToFeed) {
-                willFeed = true;
-            } else {
-                Random random = new Random();
-                int randomNumber = random.nextInt(101);
-                willFeed = pet.getTrickLevel() > randomNumber;
-            }
 
-            if (willFeed) {
-                System.out.println("Hm... I will feed " + name + "'s " + pet.getNickname());
-            } else {
-                System.out.println("I think " + name + " is not hungry.");
-            }
-
-            return willFeed;
-        }
-        else{
-            System.out.println(this.name +" doesn't have a pet to feed.");
-            return  false;
-        }
-
-    }
     @Override
     public String toString() {
         return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", year=" + yearOfBirth +
+                ", yearOfBirth=" + yearOfBirth +
                 ", IQ=" + IQ +
-                ", pet=" + (pet != null ? pet.toString() : "null") +
-                ", mother=" + (mother != null ? mother.getName() + " " + mother.getSurname() : "null") +
-                ", father=" + (father != null ? father.getName() + " " + father.getSurname() : "null") +
+
+                ", schedule=" + Arrays.toString(schedule) +
                 '}';
     }
-
 
     public String getName() {
         return name;
@@ -125,12 +70,19 @@ public class Human {
     }
 
     public void setIQ(int IQ) {
-        if(IQ>=1 && IQ<=100){
+        if (IQ >= 1 && IQ <= 100) {
             this.IQ = IQ;
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("IQ must be between 1 and 100");
         }
+    }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
     }
 
     public int getYearOfBirth() {
@@ -141,29 +93,6 @@ public class Human {
         this.yearOfBirth = year;
     }
 
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
-    public Human getMother() {
-        return mother;
-    }
-
-    public void setMother(Human mother) {
-        this.mother = mother;
-    }
-
-    public Human getFather() {
-        return father;
-    }
-
-    public void setFather(Human father) {
-        this.father = father;
-    }
 
     public String[][] getSchedule() {
         return schedule;
@@ -171,5 +100,17 @@ public class Human {
 
     public void setSchedule(String[][] schedule) {
         this.schedule = schedule;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Human human = (Human) o;
+        return yearOfBirth == human.yearOfBirth && Objects.equals(name, human.name) && Objects.equals(surname, human.surname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, yearOfBirth);
     }
 }

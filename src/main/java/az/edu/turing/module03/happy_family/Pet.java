@@ -9,10 +9,11 @@ public class Pet {
     private int trickLevel;
     private String[] habits;
 
-    public Pet(){
+    public Pet() {
 
     }
-    public Pet(String nickname){
+
+    public Pet(String nickname) {
         this.nickname = nickname;
     }
 
@@ -27,7 +28,7 @@ public class Pet {
 
     @Override
     public String toString() {
-        return species+"{" +
+        return species + "{" +
                 ", nickname='" + nickname + '\'' +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
@@ -35,16 +36,17 @@ public class Pet {
                 '}';
     }
 
-    public void eat(){
+    public void eat() {
         System.out.println("I am eating");
     }
-    public void respond(){
-        System.out.println("Hello, owner. I am "+this.nickname +"I miss you!");
-    }
-    public void foul(){
-        System.out.println("I need to cover it up");
+
+    public void respond() {
+        System.out.println("Hello, owner. I am " + this.nickname + "I miss you!");
     }
 
+    public void foul() {
+        System.out.println("I need to cover it up");
+    }
 
 
     public String getSpecies() {
@@ -76,10 +78,9 @@ public class Pet {
     }
 
     public void setTrickLevel(int trickLevel) {
-        if(trickLevel>=1 && trickLevel<=100){
+        if (trickLevel >= 1 && trickLevel <= 100) {
             this.trickLevel = trickLevel;
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("Trick level must be between 1 and 100");
         }
 
