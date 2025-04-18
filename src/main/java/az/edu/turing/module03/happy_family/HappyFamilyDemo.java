@@ -31,6 +31,11 @@ public class HappyFamilyDemo {
 
 
 
+        Human human1 = new Human("Lily", "Potter", 1990);
+        System.out.println(human1.equals(mother));
+
+
+
 
 
 

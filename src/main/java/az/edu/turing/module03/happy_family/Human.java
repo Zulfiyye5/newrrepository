@@ -128,7 +128,9 @@ public class Human {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Human human = (Human) o;
-        return yearOfBirth == human.yearOfBirth && Objects.equals(name, human.name) && Objects.equals(surname, human.surname);
+        return yearOfBirth == human.yearOfBirth &&
+                name.equals(human.name) &&
+                surname.equals(human.surname);
     }
 
     @Override
