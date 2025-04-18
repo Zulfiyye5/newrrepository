@@ -1,14 +1,19 @@
 package az.edu.turing.module03.happy_family;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
-public class Family {
+public class Family implements HumanCreator {
     private Human mother;
     private Human father;
     private Pet pet;
     private Human[] children;
+
+
+    private static final String[] maleNames = new String[]{"Martin", "Oscar", "Daniel", "Ron", "Robert", "Harry", "Dylan"};
+    private static final String[] femaleNames = new String[]{"Jane", "Elizabeth", "Anne", "Emma", "Emily", "Alice", "Lily"};
 
     public Family(Human mother, Human father) {
         this.mother = mother;
@@ -18,30 +23,55 @@ public class Family {
         this.father.setFamily(this);
     }
 
+    @Override
+    public Human bornChild(Human father, Human mother) {
+        Random random = new Random();
+        int sex = random.nextInt(2);
+        int iq = (father.getIQ() + mother.getIQ()) / 2;
+        String name = "";
+        int yearOfBirth = LocalDate.now().getYear();
+
+        if (sex == 0) {
+            name = maleNames[random.nextInt(maleNames.length)];
+            Man man = new Man(name, father.getSurname(), yearOfBirth);
+            man.setIQ(iq);
+            return  man;
+
+        } else {
+            name = femaleNames[random.nextInt(femaleNames.length)];
+            Woman woman= new Woman(name, father.getSurname(), yearOfBirth);
+            woman.setIQ(iq);
+            return woman;
+        }
+
+
+    }
+
     public void addChild(Human child) {
         this.children = Arrays.copyOf(this.children, this.children.length + 1);
         this.children[this.children.length - 1] = child;
         child.setFamily(this);
 
     }
-    public boolean deleteChild(int index){
-        int j=0;
-         if(index<0 || index>=this.children.length) return  false;
-         else{
-             Human[] newArray = new Human[this.children.length - 1];
-             for (int i = 0; i < this.children.length; i++) {
-                 if (i != index) {
-                     newArray[j++] = this.children[i];
-                 }
-                 else{
-                     this.children[i].setFamily(null);
-                 }
-             }
-             setChildren(newArray);
-             return true;
-         }
+
+    public boolean deleteChild(int index) {
+        int j = 0;
+        if (index < 0 || index >= this.children.length) return false;
+        else {
+            Human[] newArray = new Human[this.children.length - 1];
+            for (int i = 0; i < this.children.length; i++) {
+                if (i != index) {
+                    newArray[j++] = this.children[i];
+                } else {
+                    this.children[i].setFamily(null);
+                }
+            }
+            setChildren(newArray);
+            return true;
+        }
 
     }
+
     public boolean deleteChild(Human child) {
         boolean exist = false;
         int j = 0;
@@ -64,16 +94,8 @@ public class Family {
         return exist;
     }
 
-   public int countFamily(){
-        return  2+ children.length;
-   }
-
-    public void greetPet() {
-        if (pet != null && pet.getNickname() != null) {
-            System.out.println("Hello, " + pet.getNickname());
-        } else {
-            System.out.println("We don't have a pet to greet.");
-        }
+    public int countFamily() {
+        return 2 + children.length;
     }
 
     public void describePet() {
@@ -135,11 +157,13 @@ public class Family {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Family family = (Family) o;
-        return Objects.equals(mother, family.mother) && Objects.equals(father, family.father)  && Objects.deepEquals(children, family.children);
+        return Objects.equals(mother, family.mother) && Objects.equals(father, family.father) ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(mother, father, pet, Arrays.hashCode(children));
     }
+
+
 }

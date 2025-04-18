@@ -35,6 +35,21 @@ public class Human {
     }
 
 
+    public void greetPet() {
+        if (family.getPet() != null && family.getPet().getNickname() != null) {
+            System.out.println("Hello, " + family.getPet().getNickname());
+        } else {
+            System.out.println("I don't have a pet to greet.");
+        }
+    }
+
+
+    public void printSchedule() {
+        for (DayOfWeek day : DayOfWeek.values()) {
+            String activity = (schedule[day.ordinal()] == null) ? "No activity" : schedule[day.ordinal()];
+            System.out.println(day.name() + ": " + activity);
+        }
+    }
 
 
     @Override
@@ -44,8 +59,6 @@ public class Human {
                 ", surname='" + surname + '\'' +
                 ", yearOfBirth=" + yearOfBirth +
                 ", IQ=" + IQ +
-
-                ", schedule=" + Arrays.toString(schedule) +
                 '}';
     }
 
@@ -98,21 +111,19 @@ public class Human {
 
         return schedule;
     }
+
     public void setSchedule(DayOfWeek day, String activity) {
         schedule[day.ordinal()] = activity;
     }
+
     public void setSchedule(String[] schedule) {
         if (schedule.length != 7) {
             throw new IllegalArgumentException("Schedule must have 7 entries for each day of the week.");
         }
         this.schedule = schedule;
     }
-    public void printSchedule() {
-        for (DayOfWeek day : DayOfWeek.values()) {
-            String activity = (schedule[day.ordinal()] == null) ? "No activity" : schedule[day.ordinal()];
-            System.out.println(day.name() + ": " + activity);
-        }
-    }
+
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

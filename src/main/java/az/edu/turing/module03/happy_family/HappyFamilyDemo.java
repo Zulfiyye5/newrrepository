@@ -3,22 +3,33 @@ package az.edu.turing.module03.happy_family;
 public class HappyFamilyDemo {
     public static void main(String[] args) {
 
-        Pet pet1 = new Pet(Species.DOG,"Sirius",3,55,new String[]{"eat"});
-        Pet pet2 = new Pet(Species.CAT,"Garfield",2,85,new String[]{"eat, drink, sleep"});
+        Woman mother = new Woman("Lily", "Potter", 1990);
+        Man father = new Man("James", "Potter", 1989);
+        Dog dog = new Dog("Sirius");
+        mother.setIQ(90);
+        father.setIQ(85);
+        Family family = new Family(mother, father);
+        family.setPet(dog);
+        Human child = family.bornChild(father, mother);
+        System.out.println(family.countFamily());
+        family.addChild(child);
+        Human child2 = family.bornChild(father, mother);
+        family.addChild(child2);
+        System.out.println(family);
+        family.deleteChild(child2);
+        System.out.println(family);
+        System.out.println(family.countFamily());
+        System.out.println(dog);
+        mother.greetPet();
+        father.greetPet();
+        child.greetPet();
 
-        Human child1 = new Human("Harry","Potter",2002);
-        Human mother = new Human("Lily","Potter",1975);
-        Human father = new Human("James","Potter",1973);
-        Human child2 = new Human("Emma","Potter",2005);
-        Family family1 = new Family(mother,father);
-        family1.setPet(pet1);
-        family1.addChild(child1);
-        family1.deleteChild(child2);
-        System.out.println(family1);
-        mother.setSchedule(DayOfWeek.MONDAY, "bhjbj");
-        mother.setSchedule(DayOfWeek.TUESDAY, "hjugjk");
-        mother.setSchedule(DayOfWeek.WEDNESDAY, "Gvgh");
+        mother.setSchedule(DayOfWeek.MONDAY, "Working on the project");
+        mother.setSchedule(DayOfWeek.TUESDAY, "Gym");
+        mother.setSchedule(DayOfWeek.WEDNESDAY, "Reading books");
         mother.printSchedule();
+
+
 
 
 
