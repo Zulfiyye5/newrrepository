@@ -42,7 +42,18 @@ public class Human {
             System.out.println("I don't have a pet to greet.");
         }
     }
-
+    public void describePet() {
+        if (family.getPet() != null) {
+            System.out.print("I have an " + family.getPet().getSpecies() + ", it is " + family.getPet().getAge() + " years old, and it is ");
+            if (family.getPet().getTrickLevel() >= 50) {
+                System.out.println("very sly.");
+            } else {
+                System.out.println("almost not sly.");
+            }
+        } else {
+            System.out.println("We don't have a pet to describe.");
+        }
+    }
 
     public void printSchedule() {
         for (DayOfWeek day : DayOfWeek.values()) {
