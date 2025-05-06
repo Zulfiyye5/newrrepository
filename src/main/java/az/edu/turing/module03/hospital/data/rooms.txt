@@ -1,0 +1,5 @@
+Room: 1 | Occupied: NO
+Room: 2 | Occupied: NO
+Room: 3 | Occupied: NO
+Room: 4 | Occupied: NO
+Room: 5 | Occupied: NO

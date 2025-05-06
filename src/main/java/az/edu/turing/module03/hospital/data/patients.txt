@@ -1,0 +1,5 @@
+ID: P001 | Name: Emma | Birth: 2020-10-10 | Gender: Female | Diagnosis: Flu
+ID: P002 | Name: Tom | Birth: 2022-11-12 | Gender: Male | Diagnosis: Headache
+ID: P003 | Name: Sophia | Birth: 1995-06-18 | Gender: Female | Diagnosis: Cough
+ID: P004 | Name: John | Birth: 1988-04-25 | Gender: Male | Diagnosis: Flu
+ID: P005 | Name: Lily | Birth: 2000-02-20 | Gender: Female | Diagnosis: Fever

@@ -1,0 +1,3 @@
+ID: D001 | Name: Jane | Birth: 1980-05-12 | Gender: Female | Specialization: CARDIOLOGIST | Employed: 2010-06-01
+ID: DOO2 | Name: Mike | Birth: 1979-03-03 | Gender: Male | Specialization: NEUROLOGIST | Employed: 2015-01-01
+ID: DOO3 | Name: Luna | Birth: 1979-05-05 | Gender: Female | Specialization: PEDIATRICIAN | Employed: 2016-02-12
