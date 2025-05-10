@@ -40,9 +40,9 @@ public class Room {
     @Override
     public String toString() {
 
-        if (isOccupied == true && patient != null) {
+        if (isOccupied && patient != null) {
             return "Room: " + roomNumber + " | " + "Occupied: " + "YES"
-                    + "| " + patient.getId();
+                    + " | " +"PatientId: "+ patient.getId();
         } else {
             return "Room: " + roomNumber + " | " + "Occupied: " + "NO";
 
@@ -60,9 +60,10 @@ public class Room {
             room.assignPatient(p);
         } else {
             if (infos.length == 3) {
-                String patientId = infos[2].split(":")[1].trim();
+
+                String patientString = infos[2].split(":")[1].trim();
                 for (Patient patient : HospitalManager.patients) {
-                    if (patient.getId() == patientId) {
+                    if ( patient.getId().equals(patientString) ) {
                         p = patient;
                     }
                 }
@@ -75,5 +76,7 @@ public class Room {
         return room;
     }
 
-
+    public Patient getPatient() {
+        return patient;
+    }
 }

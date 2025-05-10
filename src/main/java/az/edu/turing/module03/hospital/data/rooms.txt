@@ -1,5 +1,5 @@
-Room: 1 | Occupied: NO
+Room: 1 | Occupied: YES | PatientId: P004
 Room: 2 | Occupied: NO
-Room: 3 | Occupied: NO
+Room: 3 | Occupied: YES | PatientId: P005
 Room: 4 | Occupied: NO
 Room: 5 | Occupied: NO

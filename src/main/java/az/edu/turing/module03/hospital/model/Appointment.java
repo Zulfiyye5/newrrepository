@@ -30,36 +30,49 @@ public class Appointment {
                 "DateTime: " + dateTime + " | " + "Note: " + note;
     }
 
-    public static Appointment fromString(String line, Patient patient, Doctor doctor) throws PatientNotFoundException, DoctorNotFoundException {
+    public static Appointment fromString(String line, Patient patient, Doctor doctor)
+            throws PatientNotFoundException, DoctorNotFoundException {
+
         String[] infos = line.split("\\|");
+
         String id = infos[0].split(":")[1].trim();
+
         if (patient == null) {
             String patientId = infos[1].split(":")[1].trim();
+            boolean found = false;
             for (Patient p : HospitalManager.patients) {
                 if (Objects.equals(p.getId(), patientId)) {
                     patient = p;
-                } else {
-                    throw new PatientNotFoundException("Patient does not exists");
+                    found = true;
+                    break;
                 }
             }
+            if (!found) {
+                throw new PatientNotFoundException("Patient does not exist");
+            }
         }
+
         if (doctor == null) {
-            String doctorId = infos[1].split(":")[2].trim();
+            String doctorId = infos[2].split(":")[1].trim();
+            boolean found = false;
             for (Doctor d : HospitalManager.doctors) {
                 if (Objects.equals(d.getId(), doctorId)) {
                     doctor = d;
-                } else {
-                    throw new DoctorNotFoundException("Doctor does not exists");
+                    found = true;
+                    break;
                 }
             }
+            if (!found) {
+                throw new DoctorNotFoundException("Doctor does not exist");
+            }
         }
+
         LocalDateTime dateTime = LocalDateTime.parse(infos[3].split(":")[1].trim());
         String note = infos[4].split(":")[1].trim();
 
         return new Appointment(id, patient, doctor, dateTime, note);
-
-
     }
+
 
     public String getId() {
         return id;

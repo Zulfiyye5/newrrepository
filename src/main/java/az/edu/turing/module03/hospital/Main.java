@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Main {
-    public static void main(String[] args) throws IOException, DoctorNotFoundException, PatientNotFoundException, PatientAlreadyExistsException, DoctorAlreadyExistsException, AppointmentAlreadyExistsException, RoomAlreadyExistsException {
+    public static void main(String[] args) throws IOException, DoctorNotFoundException, PatientNotFoundException, PatientAlreadyExistsException, DoctorAlreadyExistsException, AppointmentAlreadyExistsException, RoomAlreadyExistsException, RoomOccupiedException {
         Patient patient1 = new Patient("P001", "Emma", LocalDate.parse("2020-10-10"),
                 "Female", "Flu");
         Patient patient2 = new Patient("P002", "Tom", LocalDate.parse("2022-11-12"),
@@ -53,7 +53,9 @@ public class Main {
         hospitalManager.addRoom(3);
         hospitalManager.addRoom(4);
         hospitalManager.addRoom(5);
+        hospitalManager.assignRoomToPatient(1,patient4);
 
+        hospitalManager.assignRoomToPatient(3,patient5);
         hospitalManager.scheduleAppointment(appointment2);
         hospitalManager.scheduleAppointment(appointment3);
 
@@ -65,5 +67,16 @@ public class Main {
 
         hospitalManager.loadPatientsFromFile("src/main/java/az/edu/turing/module03/hospital/data/patients.txt");
 
+        hospitalManager.loadRoomsFromFile("src/main/java/az/edu/turing/module03/hospital/data/rooms.txt");
+        for(Room room:HospitalManager.rooms){
+            System.out.println(room);
+        }
+
+
     }
+
+
+
+
+
 }

@@ -1,10 +1,7 @@
 package az.edu.turing.module03.hospital.manager;
 
 import az.edu.turing.module03.hospital.exceptions.*;
-import az.edu.turing.module03.hospital.model.Appointment;
-import az.edu.turing.module03.hospital.model.Doctor;
-import az.edu.turing.module03.hospital.model.Patient;
-import az.edu.turing.module03.hospital.model.Room;
+import az.edu.turing.module03.hospital.model.*;
 
 import javax.print.Doc;
 import java.io.*;
@@ -19,14 +16,9 @@ public class HospitalManager {
     public static List<Room> rooms = new ArrayList<>();
 
     public void addPatient(Patient patient) throws PatientAlreadyExistsException {
-
-        for (Patient p : patients) {
-            if (p == patient) {
-                throw new PatientAlreadyExistsException("Patient  already exists in hospital.");
-            }
+        if (findPatientById(patient.getId()) != null) {
+            throw new PatientAlreadyExistsException("Patient already exists.");
         }
-
-
         patients.add(patient);
         System.out.println("Patient " + patient.getId() + " added");
     }
@@ -62,17 +54,18 @@ public class HospitalManager {
 
     }
 
+
+
+
+
     public void addDoctor(Doctor doctor) throws DoctorAlreadyExistsException {
-        for (Doctor d : doctors) {
-            if (d == doctor) {
-                throw new DoctorAlreadyExistsException("Doctor  already exists in hospital.");
-            }
+        if (findDoctorById(doctor.getId()) != null) {
+            throw new DoctorAlreadyExistsException("Doctor already exists.");
         }
-
-
         doctors.add(doctor);
-        System.out.println("Doctor" + doctor.getId() + " added");
+        System.out.println("Doctor " + doctor.getId() + " added");
     }
+
 
 
     public void listAllDoctors() {
@@ -107,34 +100,28 @@ public class HospitalManager {
 
 
     public void scheduleAppointment(Appointment appointment) throws DoctorNotFoundException, AppointmentAlreadyExistsException {
-        boolean patientExists = false;
-        boolean doctorExists = false;
-        for (Patient patient : patients) {
-            if (patient == appointment.getPatient()) {
-                patientExists = true;
-            }
-        }
+
+
+
+        boolean patientExists = findPatientById(appointment.getPatient().getId())!=null ;
+        boolean doctorExists = findDoctorById(appointment.getDoctor().getId())!=null;
+        boolean appointmentExists = findAppointmentByNumber(appointment.getId())!=null;
+
         if (!patientExists) {
             patients.add(appointment.getPatient());
         }
-        for (Doctor doctor : doctors) {
-            if (doctor == appointment.getDoctor()) {
-                doctorExists = true;
-            }
-        }
+
         if (!doctorExists) {
             throw new DoctorNotFoundException("Doctor " + appointment.getDoctor().getName() + " doesn't' exist in hospital");
         }
-        for (Appointment a : appointments) {
-            if (a == appointment) {
-                throw new AppointmentAlreadyExistsException("Appointment " + appointment.getId() + " already exists");
-            }
+        if (appointmentExists) {
+            throw new AppointmentAlreadyExistsException("Appointment " + appointment.getId() + " already exists");
+
         }
 
         appointments.add(appointment);
         System.out.println("Appointment added");
     }
-
 
     public void listAllAppointments() {
         for (Appointment appointment : appointments) {
@@ -190,34 +177,32 @@ public class HospitalManager {
     }
 
     public void assignRoomToPatient(int roomNumber, Patient p) throws RoomOccupiedException, PatientNotFoundException {
-        boolean roomExists = false;
-        boolean patientExists = false;
-        for (Patient patient : patients) {
-            if (patient.getId().equals(p.getId())) {
-                patientExists = true;
-                break;
+        Patient patient = findPatientById(p.getId());
+        if (patient == null) {
+            throw new PatientNotFoundException("Patient " + p.getId() + " doesn't exist in hospital");
+        }
+        for(Room room:rooms){
+            if(room.isOccupied()){
+            if(room.getPatient().equals(p)) {
+                throw new PatientAlreadyHasARoomException("Patient " + p.getId() + " already assigned to room " + room.getRoomNumber());
+            }
             }
         }
-        if (!patientExists) {
-            throw new PatientNotFoundException("Patient " + p.getName() + " doesn't exist in hospital");
+
+        Room room = findRoomByNumber(roomNumber);
+        if (room == null) {
+            throw new RoomNotFoundException("Room " + roomNumber + " is doesn't exists in hospital.");
         }
 
-        for (Room room : rooms) {
-            if (room.getRoomNumber() == roomNumber) {
-                roomExists = true;
-                if (room.isOccupied()) {
-                    throw new RoomOccupiedException("Room " + roomNumber + " is already occupied.");
-                } else {
+        if (room.isOccupied()) {
+            throw new RoomOccupiedException("Room " + roomNumber + " is already occupied.");
+        }
 
-                    room.assignPatient(p);
-                    System.out.println("Patient " + p.getName() + " assigned to room " + roomNumber);
-                }
-                break;
-            }
-        }
-        if (!roomExists) {
-            throw new RoomOccupiedException("Room " + roomNumber + " is doesn't exists in hospital.");
-        }
+        room.assignPatient(patient);
+        System.out.println("Patient assigned to room " + roomNumber);
+
+
+
 
     }
 
@@ -243,6 +228,33 @@ public class HospitalManager {
             rooms.add(Room.fromString(line, null));
         }
 
+    }
+    private Patient findPatientById(String id) {
+        return patients.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private Doctor findDoctorById(String id) {
+        return doctors.stream()
+                .filter(d -> d.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private Room findRoomByNumber(int roomNumber) {
+        return rooms.stream()
+                .filter(r -> r.getRoomNumber() == roomNumber)
+                .findFirst()
+                .orElse(null);
+    }
+
+    private Appointment findAppointmentByNumber(String id) {
+        return appointments.stream()
+                .filter(a -> a.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
 
