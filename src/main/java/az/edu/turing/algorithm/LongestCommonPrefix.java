@@ -1,4 +1,4 @@
-package az.edu.turing.module03.algorithm;
+package az.edu.turing.algorithm;
 
 import java.util.Arrays;
 
