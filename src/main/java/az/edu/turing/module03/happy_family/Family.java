@@ -13,7 +13,8 @@ public class Family implements HumanCreator {
 
 
     private static final String[] maleNames = new String[]{"Martin", "Oscar", "Daniel", "Ron", "Robert", "Harry", "Dylan"};
-    private static final String[] femaleNames = new String[]{"Jane", "Elizabeth", "Anne", "Emma", "Emily", "Alice", "Lily"};
+    private static final String[] femaleNames = new String[]{"Jane", "Elizabeth", "Anne", "Emma", "Emily", "Alice", "Mary"};
+
 
     public Family(Human mother, Human father) {
         this.mother = mother;
@@ -32,14 +33,15 @@ public class Family implements HumanCreator {
         int yearOfBirth = LocalDate.now().getYear();
 
         if (sex == 0) {
+
             name = maleNames[random.nextInt(maleNames.length)];
             Man man = new Man(name, father.getSurname(), yearOfBirth);
             man.setIQ(iq);
-            return  man;
+            return man;
 
         } else {
             name = femaleNames[random.nextInt(femaleNames.length)];
-            Woman woman= new Woman(name, father.getSurname(), yearOfBirth);
+            Woman woman = new Woman(name, father.getSurname(), yearOfBirth);
             woman.setIQ(iq);
             return woman;
         }
@@ -82,7 +84,7 @@ public class Family implements HumanCreator {
                 if (j >= newArray.length) break;
                 newArray[j++] = human;
             } else {
-                human.setFamily(null);
+                child.setFamily(null);
                 exist = true;
             }
         }
@@ -95,12 +97,15 @@ public class Family implements HumanCreator {
     }
 
     public int countFamily() {
+        if (pet != null) {
+            return 3 + children.length;
+        }
         return 2 + children.length;
     }
 
     public void describePet() {
         if (pet != null) {
-            System.out.print("I have an " + pet.getSpecies() + ", it is " + pet.getAge() + " years old, and it is ");
+            System.out.print("We have an " + pet.getSpecies() + ", it is " + pet.getAge() + " years old, and it is ");
             if (pet.getTrickLevel() >= 50) {
                 System.out.println("very sly.");
             } else {
@@ -157,7 +162,7 @@ public class Family implements HumanCreator {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Family family = (Family) o;
-        return Objects.equals(mother, family.mother) && Objects.equals(father, family.father) ;
+        return Objects.equals(mother, family.mother) && Objects.equals(father, family.father);
     }
 
     @Override

@@ -6,9 +6,15 @@ public class HappyFamilyDemo {
         Woman mother = new Woman("Lily", "Potter", 1990);
         Man father = new Man("James", "Potter", 1989);
         Dog dog = new Dog("Sirius");
+        dog.setAge(3);
         mother.setIQ(90);
         father.setIQ(85);
         Family family = new Family(mother, father);
+
+        System.out.println(family);
+
+
+
         family.setPet(dog);
         Human child = family.bornChild(father, mother);
         System.out.println(family.countFamily());
@@ -16,13 +22,17 @@ public class HappyFamilyDemo {
         Human child2 = family.bornChild(father, mother);
         family.addChild(child2);
         System.out.println(family);
-        family.deleteChild(child2);
-        System.out.println(family);
-        System.out.println(family.countFamily());
-        System.out.println(dog);
-        mother.greetPet();
-        father.greetPet();
-        child.greetPet();
+
+        System.out.println(family.deleteChild(child));
+
+    ;
+
+//        System.out.println(family);
+//        System.out.println(family.countFamily());
+//        System.out.println(dog);
+//        mother.greetPet();
+//        father.greetPet();
+//        child.greetPet();
 
         mother.setSchedule(DayOfWeek.MONDAY, "Working on the project");
         mother.setSchedule(DayOfWeek.TUESDAY, "Gym");
@@ -30,9 +40,12 @@ public class HappyFamilyDemo {
         mother.printSchedule();
 
 
-
         Human human1 = new Human("Lily", "Potter", 1990);
         System.out.println(human1.equals(mother));
+
+        family.describePet();
+
+
 
 
 

@@ -42,6 +42,7 @@ public class Human {
             System.out.println("I don't have a pet to greet.");
         }
     }
+
     public void describePet() {
         if (family.getPet() != null) {
             System.out.print("I have an " + family.getPet().getSpecies() + ", it is " + family.getPet().getAge() + " years old, and it is ");
@@ -51,7 +52,7 @@ public class Human {
                 System.out.println("almost not sly.");
             }
         } else {
-            System.out.println("We don't have a pet to describe.");
+            System.out.println("I don't have a pet to describe.");
         }
     }
 
@@ -129,7 +130,7 @@ public class Human {
 
     public void setSchedule(String[] schedule) {
         if (schedule.length != 7) {
-            throw new IllegalArgumentException("Schedule must have 7 entries for each day of the week.");
+            throw new IllegalArgumentException("Error");
         }
         this.schedule = schedule;
     }
