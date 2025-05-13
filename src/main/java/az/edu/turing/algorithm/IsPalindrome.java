@@ -1,4 +1,4 @@
-package az.edu.turing.module03.algorithm;
+package az.edu.turing.algorithm;
 
 public class IsPalindrome {
     public static boolean isPalindrome(int x) {
